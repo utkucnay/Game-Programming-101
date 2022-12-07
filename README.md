@@ -7,7 +7,7 @@ I am coding all techniques for CPU. I will learn compile shader after finish thi
 
 # Prodecural Random Map Generator With Perlin Noise
 
-I create perlin noise. I spawn oject in specific range.
+I create perlin noise. I spawn object in specific range.
 
 # AI and Pathfinding
 
