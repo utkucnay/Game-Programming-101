@@ -5,7 +5,7 @@ I use Unreal Engine for this project.
 
 I coded all techniques for cpu. I have been learn compile shader but I watched all GDC firstly coded CPU so good start point :D for me.
 
-# Prodecural Random Map Generetor
+# Prodecural Random Map Generator With Perlin Noise
 
 I create perlin noise. I spawn oject in specific range.
 
