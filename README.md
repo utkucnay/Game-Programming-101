@@ -3,7 +3,7 @@ I learn Game Programming and use them for this project.
 
 I use Unreal Engine for this project.
 
-I coded all techniques for cpu. I have been learn compile shader but I watched all GDC firstly coded CPU so good start point :D for me.
+I am coding all techniques for CPU. I will learn compile shader after finish this project. I wattched GDC videos and Companies firstly coded CPU so good start point for game programming.
 
 # Prodecural Random Map Generator With Perlin Noise
 
