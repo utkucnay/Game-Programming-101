@@ -25,4 +25,5 @@ I am coding all techniques for CPU. I will learn compile shader after finish thi
 // TODO
 
 # Refs
+- Generic Ref: https://www.youtube.com/watch?v=GFYT7Lqt1h8&list=PLlrATfBNZ98eOOCk2fOFg7Qg5yoQfFAdf
 - Ref1: https://www.youtube.com/watch?v=27Gr2RRhtNM
