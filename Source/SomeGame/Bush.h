@@ -11,6 +11,10 @@ class SOMEGAME_API ABush : public AActor
 {
 	GENERATED_BODY()
 	
+public:
+	UPROPERTY(EditAnyWhere)
+		UStaticMeshComponent* BushPtr;
+
 public:	
 	// Sets default values for this actor's properties
 	ABush();

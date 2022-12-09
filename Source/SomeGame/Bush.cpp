@@ -10,12 +10,13 @@ ABush::ABush()
 	PrimaryActorTick.bCanEverTick = true;
 
 	auto bush = ConstructorHelpers::FObjectFinder<UStaticMesh>(
-		TEXT("StaticMesh'/Game/StarterContent/Props/SM_Bush.SM_Bush'"));
+		TEXT("StaticMesh'/Game/Assets/StarterContent/Props/SM_Bush.SM_Bush'"));
 
-	UPROPERTY(EditAnyWhere)
-	auto BushPtr = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Three Trunk"));
+	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root Component"));
 
+	BushPtr = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("American Three"));
 	BushPtr->SetStaticMesh(bush.Object);
+	BushPtr->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned

@@ -11,6 +11,9 @@ class SOMEGAME_API ATree : public AActor
 {
 	GENERATED_BODY()
 	
+public:
+	UPROPERTY(EditAnyWhere)
+		UStaticMeshComponent* ThreeTrunkPtr;
 public:	
 	// Sets default values for this actor's properties
 	ATree();

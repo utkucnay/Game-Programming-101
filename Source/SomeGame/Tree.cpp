@@ -10,13 +10,13 @@ ATree::ATree()
 	PrimaryActorTick.bCanEverTick = true;
 
 	auto treeThrunk = ConstructorHelpers::FObjectFinder<UStaticMesh>(
-		TEXT("StaticMesh'/Game/TreeMesh/American_Elm_tree_vray.American_Elm_tree_vray'"));
+		TEXT("StaticMesh'/Game/Assets/AmericanTree/S_AmeriacanTree.S_AmeriacanTree'"));
 
+	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root Component"));
 
-	auto ThreeTrunkPtr = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Three Trunk"));
+	ThreeTrunkPtr = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Three Trunk"));
 	ThreeTrunkPtr->SetStaticMesh(treeThrunk.Object);
-	
-	SetRootComponent(ThreeTrunkPtr);
+	ThreeTrunkPtr->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
