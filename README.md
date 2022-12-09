@@ -5,7 +5,7 @@ I use Unreal Engine for this project.
 
 I am coding all techniques for CPU. I will learn compile shader after finish this project. I watched GDC videos and Companies firstly coded on CPU so It's good start point for game programming.
 
-# Prodecural Render With Perlin Noise(Like UE Landscape)
+# Procedural Render With Perlin Noise(Like UE Landscape)
 
 - I create perlin noise.
 - I spawn object in specific range.
