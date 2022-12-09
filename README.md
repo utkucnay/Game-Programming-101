@@ -5,9 +5,11 @@ I use Unreal Engine for this project.
 
 I am coding all techniques for CPU. I will learn compile shader after finish this project. I watched GDC videos and Companies firstly coded on CPU so It's good start point for game programming.
 
-# Prodecural Render With Perlin Noise
+# Prodecural Render With Perlin Noise(Like UE Landscape)
 
-I create perlin noise. I spawn object in specific range.
+- I create perlin noise.
+- I spawn object in specific range.
+- I am coding denisty.
 
 # AI and Pathfinding
 
@@ -16,7 +18,11 @@ I create perlin noise. I spawn object in specific range.
 # Wind Simulation
 
 // TODO
+- I will code shader grass.(Ref1)
 
 # Basic Gameplay( Run, Walk, Attack, Health)
 
 // TODO
+
+# Refs
+- Ref1: https://www.youtube.com/watch?v=27Gr2RRhtNM
