@@ -9,21 +9,22 @@ I am coding all techniques for CPU. I will learn compile shader after finish thi
 
 - I create perlin noise.
 - I spawn object in specific range.
-- I am coding denisty.
-
-# AI and Pathfinding
-
-// TODO
+- I coded denisty and distance for each other.
 
 # Wind Simulation
 
-// TODO
-- I will code shader grass.(Ref1)
+- I am coding shader grass for wind.(Ref1)
+- I will code wind simulation like God Of War.(Ref2)
 
 # Basic Gameplay( Run, Walk, Attack, Health)
 
 // TODO
 
+# AI and Pathfinding
+
+// TODO
+
 # Refs
-- Generic Ref: https://www.youtube.com/watch?v=GFYT7Lqt1h8&list=PLlrATfBNZ98eOOCk2fOFg7Qg5yoQfFAdf
+- General Ref: https://www.youtube.com/watch?v=GFYT7Lqt1h8&list=PLlrATfBNZ98eOOCk2fOFg7Qg5yoQfFAdf
 - Ref1: https://www.youtube.com/watch?v=27Gr2RRhtNM
+- Ref2: https://www.youtube.com/watch?v=dDgyBKkSf7A
