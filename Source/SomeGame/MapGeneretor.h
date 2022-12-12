@@ -14,7 +14,7 @@ struct FMeshData
 	GENERATED_BODY()
 	
 	UPROPERTY(EditAnyWhere)
-		FName name;
+		FString name;
 	UPROPERTY(EditAnyWhere, meta=(ClampMin = "0", ClampMax = "1000"))
 		float density;
 	UPROPERTY(EditAnyWhere)

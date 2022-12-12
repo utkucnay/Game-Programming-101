@@ -28,6 +28,7 @@ void AMapGeneretor::BeginPlay()
 	for (int i = 0; i < meshDatas.Num(); i++) 
 	{
 		meshDatas[i].ActorOfMesh = GetWorld()->SpawnActor<ABaseActor>(FVector(), FRotator());
+		meshDatas[i].ActorOfMesh->SetActorLabel(meshDatas[i].name);
 		meshDatas[i].ISMC = meshDatas[i].ActorOfMesh->ISMC;
 		meshDatas[i].ISMC->SetStaticMesh(meshDatas[i].mesh);
 		meshDatas[i].divideRatio = 1.0f / meshDatas[i].distance;
