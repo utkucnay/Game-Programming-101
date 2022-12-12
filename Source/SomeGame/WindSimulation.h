@@ -13,7 +13,7 @@ class SOMEGAME_API AWindSimulation : public AActor
 	
 public:
 	UPROPERTY(EditAnyWhere)
-		FVector _globalWind;
+		FVector globalWind;
 
 public:	
 	AWindSimulation();

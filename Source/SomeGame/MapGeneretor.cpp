@@ -2,49 +2,55 @@
 
 #include "MapGeneretor.h"
 #include "PerlinNoiseGeneretor.h"
-#include "Tree.h"
-#include "Bush.h"
 
 // Sets default values
 AMapGeneretor::AMapGeneretor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	textureLenght = FVector2f(64,64);
 }
 
 // Called when the game starts or when spawned
 void AMapGeneretor::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	int mapLenght = 128;
 
-	auto noise = PerlinNoiseGeneretor::GetPerlinNoiseSquare(mapLenght, (FMath::SRand() + .1f) * 20 );
+	auto firstNoise = PerlinNoiseGeneretor::GetPerlinNoise(textureLenght, (FMath::SRand() + .1f) * 20 );
+
+	float startPointX = groundLoc.X / cScaleValueMulti - groundScale.X / 2;
+	float startPointY = groundLoc.Y / cScaleValueMulti - groundScale.Y / 2;
+
+	FVector2f offset = groundScale * cScaleValueMulti / textureLenght;
+	offset -= FVector2f(cScaleValueMulti);
 	
-	for (int y = 0; y < mapLenght - 1; y++) {
-		for (int x = 0; x < mapLenght - 1; x++)
+
+	for (int i = 0; i < meshDatas.Num(); i++) 
+	{
+		meshDatas[i].ActorOfMesh = GetWorld()->SpawnActor<ABaseActor>(FVector(), FRotator());
+		meshDatas[i].ISMC = meshDatas[i].ActorOfMesh->ISMC;
+		meshDatas[i].ISMC->SetStaticMesh(meshDatas[i].mesh);
+		meshDatas[i].divideRatio = 1.0f / meshDatas[i].distance;
+		meshDatas[i].distanceRatio = FindRatio(meshDatas[i].density / 1000.0f, meshDatas[i].divideRatio);
+	}
+
+	for (int y = 0; y < textureLenght.Y; y++) {
+		for (int x = 0; x < textureLenght.X; x++)
 		{
-			SpawnObjectInRange<ATree>(.3f, .3025f, noise[y * mapLenght + x].X,
-				FVector(x * 100 + 50, y * 100 + 50, 0), FRotator(0, noise[y * mapLenght + x].Y, 0));
-
-			SpawnObjectInRange<ATree>(-.3025f, -.3f, noise[y * mapLenght + x].X,
-				FVector(x * 100 + 50, y * 100 + 50, 0), FRotator(0, noise[y * mapLenght + x].Y, 0));
-
-			SpawnObjectInRange<ABush>(-.8f, -.6f, noise[y * mapLenght + x].X,
-				FVector(x * 100 + 50, y * 100 + 50, 0), FRotator(0, noise[y * mapLenght + x].Y, 0));
-
-			SpawnObjectInRange<ABush>(-.3f, -.1f, noise[y * mapLenght + x].X,
-				FVector(x * 100 + 50, y * 100 + 50, 0), FRotator(0, noise[y * mapLenght + x].Y, 0));
-
-			SpawnObjectInRange<ABush>(.8f, 1.0f, noise[y * mapLenght + x].X,
-				FVector(x * 100 + 50, y * 100 + 50, 0), FRotator(0, noise[y * mapLenght + x].Y, 0));
-
-			SpawnObjectInRange<ABush>(.2f, .4f, noise[y * mapLenght + x].X,
-				FVector(x * 100 + 50, y * 100 + 50, 0), FRotator(0, noise[y * mapLenght + x].Y, 0));
+			for(float f = 0; f < meshDatas.Num(); f++)
+			{
+				for (float i = 0; i < 1; i += meshDatas[f].divideRatio)
+				{
+					if (ObjectInRange(i, meshDatas[f].distanceRatio + i, firstNoise[textureLenght.Y * y + x].X))
+					{
+						SpawnObject(
+							FVector((startPointX + x) * cScaleValueMulti + offset.X * x, (startPointY + y) * cScaleValueMulti + offset.Y * y, 0),
+							FRotator(0, FMath::RandHelper(360), 0), meshDatas[f].ISMC);
+					}
+				}
+			}
 		}
 	}
-	
 }
 
 // Called every frame
@@ -55,10 +61,21 @@ void AMapGeneretor::Tick(float DeltaTime)
 }
 
 
-template<typename T>
-void AMapGeneretor::SpawnObjectInRange(float minX, float maxX, float currX, FVector vector, FRotator rotator)
+float AMapGeneretor::FindRatio(float ratioObject, float textureDivideratio)
 {
+	float ratio = textureDivideratio;
+	ratio *= ratioObject;
+	return ratio;
+}
+
+bool AMapGeneretor::ObjectInRange(float minX, float maxX, float currX) {
 	if (minX < currX && currX < maxX) {
-		GetWorld()->SpawnActor<T>(vector, rotator);
+		return true;
 	}
+	return false;
+}
+
+void AMapGeneretor::SpawnObject(FVector vector, FRotator rotator, UInstancedStaticMeshComponent* ISMC)
+{
+	ISMC->AddInstance(FTransform(rotator, vector, FVector3d(1, 1, 1)), true);
 }

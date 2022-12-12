@@ -10,21 +10,35 @@
 class SOMEGAME_API PerlinNoiseGeneretor
 {
 public:
-	static TArray<FVector4f> GetPerlinNoiseSquare(const int length, float dt) {
+	static TArray<FVector4f> GetPerlinNoise(const FVector2f textureLength, float dt) {
 
 		TArray<FVector4f> color;
-		color.Reserve(length * length);
-		float halfLength = length / 2.0f;
+		float length = textureLength.X * textureLength.Y;
+		color.Reserve(length);
 		
-		for (int y = 0; y < length; y++)
+		for (int y = 0; y < textureLength.Y; y++)
 		{
-			for (int x = 0; x < length; x++)
+			for (int x = 0; x < textureLength.X; x++)
 			{
-				auto noise = FMath::PerlinNoise2D(FVector2D((float)x / length * dt, (float)y / length) * dt);
-				color.Add(FVector4f(noise, FMath::RandHelper(360), 0, 0));
-				UE_LOG(LogTemp, Warning,TEXT("noise: %f"), noise);
+				auto noise = FMath::PerlinNoise2D(FVector2D((float)x / textureLength.X * dt, (float)y / textureLength.Y) * dt);
+				noise = (noise * .5f) + .5f;
+				color.Add(FVector4f(noise, noise, noise, 1));
 			}
 		}
+
+		//fractal algorithm
+		for (int z = 0; z < 20; z++) {
+			for (int y = 0; y < textureLength.Y - 1; y++)
+			{
+				for (int x = 0; x < textureLength.X - 1; x++)
+				{
+					color[y * textureLength.Y + x] = (color[y * textureLength.Y + x + 1] + color[(y + 1) * textureLength.Y + x + 1] +
+						color[(y + 1) * textureLength.Y + x]) / 3;
+				}
+			}
+		}
+
+
 		return color;
 	}
 };
