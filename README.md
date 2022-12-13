@@ -15,7 +15,7 @@ I am coding all techniques for CPU. I will learn compile shader after finish thi
 # AI and Pathfinding
 
 - I will code data oriented HFSM(Ref1).  
-- I will code grid based a star path finding.
+- I will code grid based a star pathfinding.
 
 # Refs
 - General Ref: https://www.youtube.com/watch?v=GFYT7Lqt1h8&list=PLlrATfBNZ98eOOCk2fOFg7Qg5yoQfFAdf
