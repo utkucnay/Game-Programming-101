@@ -9,8 +9,6 @@ I am coding all techniques for the CPU. After I finish this project, I will lear
 - I spawn objects in specific range.
 - I coded denisty and distance for each object.
 
-https://user-images.githubusercontent.com/48163717/207445654-0c74862f-c980-46c8-b749-704aa3291d70.mp4
-
 # AI and Pathfinding
 
 - I will code data oriented HFSM(Ref1).  
