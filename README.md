@@ -1,16 +1,13 @@
 # Game-Programming-101
-I learn Game Programming and use them for this project.
+I am learning game programming and using Unreal Engine for my project.
 
-I use Unreal Engine for this project.
-
-I am coding all techniques for CPU. I will learn compile shader after finish this project. I watched GDC videos and Companies firstly coded on CPU so It's good start point for game programming.
+I am coding all techniques for the CPU. After I finish this project, I will learn how to compile shaders. I watched GDC videos and learned that many companies first code on the CPU, so it's a good starting point for game programming.
 
 # Procedural Render With Perlin Noise
 
-- I create perlin noise.
-- I used fractal algorithm on perlin noise.
-- I spawn object in specific range.
-- I coded denisty and distance for each other.
+- I created Perlin noise and used a fractal algorithm on it.
+- I spawn objects in specific range.
+- I coded denisty and distance for each object.
 
 # AI and Pathfinding
 
