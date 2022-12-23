@@ -1,5 +1,5 @@
 # Procedural Level Generation
-I create level random procedural level Generation.
+I create level random procedural level generation.
 
 # Procedural Render
 
