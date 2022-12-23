@@ -21,6 +21,14 @@ struct FMeshData
 		float distance;
 	UPROPERTY(EditAnyWhere)
 		UStaticMesh* mesh;
+	UPROPERTY(EditAnyWhere)
+		bool RandomRotation;
+	UPROPERTY(EditAnyWhere)
+		bool RandomScale;
+	UPROPERTY(EditAnyWhere)
+		FVector ScaleMax;
+	UPROPERTY(EditAnyWhere)
+		FVector ScaleMin;
 	ABaseActor* ActorOfMesh;
 	UInstancedStaticMeshComponent* ISMC;
 	float distanceRatio;
@@ -61,8 +69,9 @@ public:
 	float FindRatio(float ratioObject, float textureDivideLenght);
 
 private:
-	bool ObjectInRange(float minX, float maxX, float currX);
-	void SpawnObject(FVector vector, FRotator rotator, UInstancedStaticMeshComponent* ISMC);
+	void SpawnInstancedObjectWithMeshData(TArray<FMeshData> meshDatas);
+	bool ObjectInRange(float minX, float maxX, float currX) const;
+	void InstanceObject(FVector vector, FRotator rotator, FVector3d scale, UInstancedStaticMeshComponent* ISMC);
 };
 
 

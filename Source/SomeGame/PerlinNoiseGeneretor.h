@@ -12,9 +12,9 @@ class SOMEGAME_API PerlinNoiseGeneretor
 public:
 	static TArray<FVector4f> GetPerlinNoise(const FVector2f textureLength, float dt) {
 
-		TArray<FVector4f> color;
+		TArray<FVector4f> texture;
 		float length = textureLength.X * textureLength.Y;
-		color.Reserve(length);
+		texture.Reserve(length);
 		
 		for (int y = 0; y < textureLength.Y; y++)
 		{
@@ -22,23 +22,9 @@ public:
 			{
 				auto noise = FMath::PerlinNoise2D(FVector2D((float)x / textureLength.X * dt, (float)y / textureLength.Y) * dt);
 				noise = (noise * .5f) + .5f;
-				color.Add(FVector4f(noise, noise, noise, 1));
+				texture.Add(FVector4f(noise, noise, noise, 1));
 			}
 		}
-
-		//fractal algorithm
-		for (int z = 0; z < 20; z++) {
-			for (int y = 0; y < textureLength.Y - 1; y++)
-			{
-				for (int x = 0; x < textureLength.X - 1; x++)
-				{
-					color[y * textureLength.Y + x] = (color[y * textureLength.Y + x + 1] + color[(y + 1) * textureLength.Y + x + 1] +
-						color[(y + 1) * textureLength.Y + x]) / 3;
-				}
-			}
-		}
-
-
-		return color;
+		return texture;
 	}
 };

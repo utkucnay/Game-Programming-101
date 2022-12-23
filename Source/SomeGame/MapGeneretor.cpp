@@ -2,6 +2,7 @@
 
 #include "MapGeneretor.h"
 #include "PerlinNoiseGeneretor.h"
+#include "TextureHelper.h"
 
 // Sets default values
 AMapGeneretor::AMapGeneretor()
@@ -16,7 +17,8 @@ void AMapGeneretor::BeginPlay()
 {
 	Super::BeginPlay();
 
-	auto firstNoise = PerlinNoiseGeneretor::GetPerlinNoise(textureLenght, (FMath::SRand() + .1f) * 20 );
+	auto noiseTexture = PerlinNoiseGeneretor::GetPerlinNoise(textureLenght, (FMath::SRand() + .1f) * 20 );
+	noiseTexture = TextureHelper::FractalAlgorithm(20, noiseTexture, textureLenght);
 
 	float startPointX = groundLoc.X / cScaleValueMulti - groundScale.X / 2;
 	float startPointY = groundLoc.Y / cScaleValueMulti - groundScale.Y / 2;
@@ -35,20 +37,30 @@ void AMapGeneretor::BeginPlay()
 		meshDatas[i].distanceRatio = FindRatio(meshDatas[i].density / 1000.0f, meshDatas[i].divideRatio);
 	}
 
+	Algo::SortBy(meshDatas, &FMeshData::density);
+
 	for (int y = 0; y < textureLenght.Y; y++) {
 		for (int x = 0; x < textureLenght.X; x++)
 		{
+			bool IsSpawn = false;
 			for(float f = 0; f < meshDatas.Num(); f++)
 			{
-				for (float i = 0; i < 1; i += meshDatas[f].divideRatio)
+				auto meshData = meshDatas[f];
+				for (float i = 0; i < 1; i += meshData.divideRatio)
 				{
-					if (ObjectInRange(i, meshDatas[f].distanceRatio + i, firstNoise[textureLenght.Y * y + x].X))
+					if (ObjectInRange(i, meshData.distanceRatio + i, noiseTexture[textureLenght.Y * y + x].X))
 					{
-						SpawnObject(
+						InstanceObject(
 							FVector((startPointX + x) * cScaleValueMulti + offset.X * x, (startPointY + y) * cScaleValueMulti + offset.Y * y, 0),
-							FRotator(0, FMath::RandHelper(360), 0), meshDatas[f].ISMC);
+							FRotator(0, meshData.RandomRotation ? FMath::RandHelper(360) : 0, 0),
+							meshData.RandomScale ? meshData.ScaleMin + FMath::SRand() * (meshData.ScaleMax - meshData.ScaleMin) : FVector3d(1, 1, 1)
+							,meshData.ISMC);
+						IsSpawn = true;
+						break;
 					}
 				}
+				if (IsSpawn)
+					break;
 			}
 		}
 	}
@@ -62,21 +74,22 @@ void AMapGeneretor::Tick(float DeltaTime)
 }
 
 
-float AMapGeneretor::FindRatio(float ratioObject, float textureDivideratio)
+float AMapGeneretor::FindRatio(float ratioObject, float textureDivideRatio)
 {
-	float ratio = textureDivideratio;
+	float ratio = textureDivideRatio;
 	ratio *= ratioObject;
 	return ratio;
 }
 
-bool AMapGeneretor::ObjectInRange(float minX, float maxX, float currX) {
+bool AMapGeneretor::ObjectInRange(float minX, float maxX, float currX) const
+{
 	if (minX < currX && currX < maxX) {
 		return true;
 	}
 	return false;
 }
 
-void AMapGeneretor::SpawnObject(FVector vector, FRotator rotator, UInstancedStaticMeshComponent* ISMC)
+void AMapGeneretor::InstanceObject(FVector vector, FRotator rotator, FVector3d scale, UInstancedStaticMeshComponent* ISMC)
 {
-	ISMC->AddInstance(FTransform(rotator, vector, FVector3d(1, 1, 1)), true);
+	ISMC->AddInstance(FTransform(rotator, vector, scale), true);
 }
